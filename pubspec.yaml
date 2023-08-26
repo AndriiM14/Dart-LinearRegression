@@ -8,6 +8,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  tabular: ^0.6.3+1
   # path: ^1.8.0
 
 dev_dependencies:

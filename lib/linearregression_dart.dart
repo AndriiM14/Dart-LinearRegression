@@ -2,13 +2,13 @@ import 'package:linearregression_dart/vector.dart';
 
 class LinearRegression {
   // ignore: non_constant_identifier_names
-  List<Vector<double>> _X = [];
+  Matrix<double> _X = [];
   Vector<double> _y = Vector([]);
   Vector<double> _w = Vector([]);
   double learningRate = 0.001;
 
   LinearRegression(
-      {required List<Vector> X,
+      {required Matrix<double> X,
       required Vector y,
       this.learningRate = 0.0001}) {
     _X = List.generate(

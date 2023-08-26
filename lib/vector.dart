@@ -12,6 +12,17 @@ class _VectorDimensionsException implements Exception {
   }
 }
 
+typedef Matrix<T extends num> = List<Vector<T>>;
+
+typedef MatrixShape = ({int rows, int columns});
+
+MatrixShape matrixShape(Matrix matrix) {
+  return (
+    rows: matrix.length,
+    columns: (matrix.isNotEmpty ? matrix[0].dimensions : 0)
+  );
+}
+
 class Vector<T extends num> extends IterableMixin<T> {
   List<T> _data = [];
 
@@ -37,6 +48,7 @@ class Vector<T extends num> extends IterableMixin<T> {
     _data = List<T>.generate(length, (index) => element);
   }
 
+  @override
   T reduce(T Function(T value, T element) combine) {
     return _data.reduce(combine);
   }
