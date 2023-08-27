@@ -26,6 +26,8 @@ class Dataframe<T extends num> {
         columns: _data.keys.length
       );
 
+  List<String> get columns => _data.keys.toList();
+
   Dataframe(this._data);
 
   Dataframe.fromVectors(
