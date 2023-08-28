@@ -1,4 +1,5 @@
 import 'package:linearregression_dart/vector.dart';
+import 'package:quiver/iterables.dart';
 import 'package:tabular/tabular.dart';
 
 class NoSuchColumnException implements Exception {
@@ -27,6 +28,15 @@ class Dataframe<T extends num> {
       );
 
   List<String> get columns => _data.keys.toList();
+
+  set columns(List<String> newColumns) {
+    Data<T> newData = {};
+    for (final [oldColumn, newColumn] in zip([_data.keys, newColumns])) {
+      newData[newColumn] = _data[oldColumn]!;
+    }
+
+    _data = {...newData};
+  }
 
   Dataframe(this._data);
 
@@ -76,6 +86,10 @@ class Dataframe<T extends num> {
     }
 
     return v;
+  }
+
+  void operator []=(String columnKey, Vector<T> value) {
+    _data[columnKey] = value;
   }
 
   List<List<String>> _toTable() {
