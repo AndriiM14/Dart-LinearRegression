@@ -1,5 +1,5 @@
 import 'dart:collection';
-
+import 'dart:math' as math show min, max;
 import 'package:linearregression_dart/numeric.dart';
 
 class _VectorDimensionsException implements Exception {
@@ -29,6 +29,9 @@ class Vector<T extends num> extends IterableMixin<T> {
   List<T> _data = [];
 
   int get dimensions => _data.length;
+
+  T get min => _data.reduce(math.min);
+  T get max => _data.reduce(math.max);
 
   static checkDimensions(Vector a, Vector b) {
     if (a.dimensions != b.dimensions) {
@@ -76,6 +79,13 @@ class Vector<T extends num> extends IterableMixin<T> {
         List<T>.generate(dimensions, (index) => (this[index] * v[index]) as T));
   }
 
+  Vector<T> divide(Vector<T> v) {
+    Vector.checkDimensions(this, v);
+
+    return Vector(List.generate(
+        dimensions, (index) => asNumType<T>(this[index] / v[index])));
+  }
+
   double dot(Vector<T> v) {
     return (this * v)
         .reduce((value, element) => value + element as T)
@@ -96,6 +106,7 @@ class Vector<T extends num> extends IterableMixin<T> {
   Vector<T> operator +(Vector<T> v) => sum(v);
   Vector<T> operator -(Vector<T> v) => substract(v);
   Vector<T> operator *(Vector<T> v) => mul(v);
+  Vector<T> operator /(Vector<T> v) => divide(v);
 
   @override
   String toString() {
