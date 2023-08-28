@@ -2,18 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:linearregression_dart/dataframe.dart';
+import 'package:linearregression_dart/numeric.dart';
 import 'package:linearregression_dart/parsers/parser.dart';
 import 'package:linearregression_dart/vector.dart';
 
 class CsvParser<T extends num> implements Parser<T> {
   T convert(String element) {
-    double? converted = double.tryParse(element);
-
-    if (0.0 is T) {
-      return converted != null ? converted as T : 0.0 as T;
-    } else {
-      return converted != null ? converted.toInt() as T : 0 as T;
+    if (isNumeric(element)) {
+      final converted = double.parse(element);
+      return asNumType<T>(converted);
     }
+
+    return asNumType<T>(0);
   }
 
   @override

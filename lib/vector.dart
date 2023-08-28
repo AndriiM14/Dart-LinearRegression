@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'package:linearregression_dart/numeric.dart';
+
 class _VectorDimensionsException implements Exception {
   final int v1Dimensions;
   final int v2Dimensions;
@@ -37,11 +39,11 @@ class Vector<T extends num> extends IterableMixin<T> {
   Vector(this._data);
 
   Vector.zeros(int length) {
-    _data = List<T>.generate(length, (index) => 0.0 is T ? 0.0 as T : 0 as T);
+    _data = List<T>.generate(length, (index) => asNumType<T>(0));
   }
 
   Vector.ones(int length) {
-    _data = List<T>.generate(length, (index) => 1.0 is T ? 1.0 as T : 1 as T);
+    _data = List<T>.generate(length, (index) => asNumType<T>(1));
   }
 
   Vector.fill(int length, T element) {
@@ -85,7 +87,7 @@ class Vector<T extends num> extends IterableMixin<T> {
   }
 
   Vector<T> mulByScalar(T a) {
-    return Vector(List.generate(dimensions, (index) => this[index] * a as T));
+    return Vector(List.generate(dimensions, (index) => (this[index] * a) as T));
   }
 
   Vector<double> toDouble() => Vector(map((e) => e.toDouble()).toList());
