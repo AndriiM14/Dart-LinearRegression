@@ -5,7 +5,6 @@ import 'package:linearregression_dart/vector.dart';
 class MinMaxScaler<T extends num> implements Scaler<T> {
   @override
   Dataframe<T> scaleDf(Dataframe<T> df) {
-    // Works wrong!!!;
     Data<T> scaledData = {};
     for (final columnKey in df.columns) {
       scaledData[columnKey] = this.scaleV(df[columnKey]);
